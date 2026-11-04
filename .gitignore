@@ -1,0 +1,22 @@
+# 依赖与构建产物
+node_modules/
+*.tgz
+
+# 运行时数据（插件会把它们写到 $DSH_HOME/desktop-tools/）
+last-run.json
+boot.log
+helper.log
+layout.json
+pending-clean.json
+
+# 本机探测/调试产物
+.dsh-probe/
+*.bak
+*.tmp
+
+# 编辑器与系统
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store

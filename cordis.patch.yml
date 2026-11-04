@@ -1,0 +1,17 @@
+# dsh-restart bundle patch
+#
+# 单一插件，两个功能：
+# - cookie 清理（dsh-auth-* 累积导致 431 / “认证失败”）
+# - 页面重启按钮（装/停插件后生效）
+#
+# 不依赖任何外部服务，webServer 走可选注入。
+
+- insert:
+    - id: dsh-restart
+      name: 'dsh-restart'
+      config:
+        cleanOnEveryRestart: true
+        keepBackups: 3
+        restartLaunchDelayMs: 1200
+        killDelayMs: 800
+        dryRun: false

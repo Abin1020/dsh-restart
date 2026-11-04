@@ -1,0 +1,71 @@
+{
+  "name": "dsh-restart",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "DeepSeek Harness 桌面端维护：清理累积的 dsh-auth-* cookie、页面内一键重启、自定义窗口与右侧栏尺寸。零 asar 补丁。",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "client.js",
+    "cordis.patch.yml",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "dsh-plugins",
+    "deepseek-harness",
+    "deepseek",
+    "harness",
+    "desktop",
+    "cordis",
+    "cookie",
+    "electron"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderZwb/dsh-restart.git"
+  },
+  "homepage": "https://github.com/coderZwb/dsh-restart#readme",
+  "bugs": {
+    "url": "https://github.com/coderZwb/dsh-restart/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build:winagent": "node scripts/build-winagent.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    },
+    "install": {
+      "preferred": "tarball",
+      "tarball": "https://github.com/coderZwb/dsh-restart/archive/refs/heads/main.tar.gz",
+      "zip": "https://github.com/coderZwb/dsh-restart/archive/refs/heads/main.zip",
+      "git": "https://github.com/coderZwb/dsh-restart.git"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  }
+}

@@ -1,0 +1,12 @@
+# 二进制文件：禁止任何行尾转换与文本 diff
+*.exe binary
+
+# 统一用 LF 存进仓库。工作区里 Windows 编辑器写出的 CRLF 由 core.autocrlf 处理，
+# 仓库内始终保持 LF，避免跨平台协作时整文件 diff。
+*.js    text eol=lf
+*.mjs   text eol=lf
+*.json  text eol=lf
+*.yml   text eol=lf
+*.md    text eol=lf
+*.cs    text eol=crlf
+*.csproj text eol=crlf
