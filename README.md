@@ -28,7 +28,7 @@ function cookieName(authority) {
 
 ```bash
 # 1. 放进插件目录
-git clone https://github.com/coderZwb/dsh-restart.git ~/.dsh/plugins/dsh-restart
+git clone https://github.com/Abin1020/dsh-restart.git ~/.dsh/plugins/dsh-restart
 
 # 2. 在 profile 的 package.json 里登记
 #    ~/.dsh/profiles/desktop/package.json

@@ -28,4 +28,4 @@
 - 窗口代理只作用于启动那一次，之后用户手动拖动/最大化不会被覆盖。
 - 右侧栏宽度受窗口宽度限制，上限 `min(视口 × 0.7, 视口 − 680)`，下限 300。
 
-[0.1.0]: https://github.com/coderZwb/dsh-restart/releases/tag/v0.1.0
+[0.1.0]: https://github.com/Abin1020/dsh-restart/releases/tag/v0.1.0

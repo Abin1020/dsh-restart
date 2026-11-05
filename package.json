@@ -33,11 +33,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coderZwb/dsh-restart.git"
+    "url": "git+https://github.com/Abin1020/dsh-restart.git"
   },
-  "homepage": "https://github.com/coderZwb/dsh-restart#readme",
+  "homepage": "https://github.com/Abin1020/dsh-restart#readme",
   "bugs": {
-    "url": "https://github.com/coderZwb/dsh-restart/issues"
+    "url": "https://github.com/Abin1020/dsh-restart/issues"
   },
   "engines": {
     "node": ">=18"
@@ -60,9 +60,9 @@
     },
     "install": {
       "preferred": "tarball",
-      "tarball": "https://github.com/coderZwb/dsh-restart/archive/refs/heads/main.tar.gz",
-      "zip": "https://github.com/coderZwb/dsh-restart/archive/refs/heads/main.zip",
-      "git": "https://github.com/coderZwb/dsh-restart.git"
+      "tarball": "https://github.com/Abin1020/dsh-restart/archive/refs/heads/main.tar.gz",
+      "zip": "https://github.com/Abin1020/dsh-restart/archive/refs/heads/main.zip",
+      "git": "https://github.com/Abin1020/dsh-restart.git"
     }
   },
   "peerDependencies": {
