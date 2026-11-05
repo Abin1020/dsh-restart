@@ -1034,8 +1034,12 @@ window.__ModuleLoader__.load({
 
 		function titlebarButtonStyle(hover, busy, inset) {
 			return {
-				position: "absolute",
-				// 28px 高、上下各留 6px，与 preload 里官方的「文件 / 编辑」标题栏按钮同尺寸，
+				// 必须是 fixed：shell.overlay 挂在 .overlayLayer（position:absolute; inset:0）
+				// 里，absolute 的包含块是那个 layer 的 padding box，不保证等于窗口顶端，
+				// 一旦有偏差按钮就在垂直方向跑。preload 里官方的「文件 / 编辑」菜单用的
+				// 也是 position:fixed; top:0; height:var(--dsh-windows-titlebar-height)。
+				position: "fixed",
+				// 28px 高、上下各留 6px（标题栏 40px），与官方标题栏按钮同尺寸，
 				// 这样它才是「融进标题栏」而不是自己长出一块 40px 高的色块。
 				top: "6px",
 				right: `calc(${inset}px + 2px)`,
@@ -1058,10 +1062,20 @@ window.__ModuleLoader__.load({
 		// 平台与全屏都交给 CSS 判定，避免「preload 打标晚于 React 挂载」导致按钮永不出现：
 		// - 只有 html[data-windows-titlebar]（preload 在 win32 下打的）才显示；
 		// - 全屏时顶带消失（--dsh-frame-chrome-top:0），按钮跟着藏起来。
+		//
+		// 后面两条 overflow:hidden 是必须的：桌面端整个界面就是一层
+		// height:100% 的 grid，文档本身不该能滚。但实测 document 的
+		// scrollHeight 会比 clientHeight 多出约 21px，于是鼠标在对话框里
+		// 滚一下，整个 frame（连同标题栏那条拖拽带）就跟着上移 21px；
+		// 而 Electron 的原生窗口控制键画在窗口最上层、我们的按钮又是
+		// fixed，两者都不动 —— 看上去就是「按钮/整条标题栏整体上移」。
+		// 锁住文档滚动，三者的位置关系才恒定。
 		const TITLEBAR_CSS =
 			"[data-dsh-titlebar-restart]{display:none}" +
 			"html[data-windows-titlebar] [data-dsh-titlebar-restart]{display:inline-flex;align-items:center;justify-content:center}" +
-			"html[data-windows-titlebar][data-fullscreen] [data-dsh-titlebar-restart]{display:none}";
+			"html[data-windows-titlebar][data-fullscreen] [data-dsh-titlebar-restart]{display:none}" +
+			"html[data-windows-titlebar]," +
+			"html[data-windows-titlebar] body{overflow:hidden}";
 
 		function TitlebarRestartButton() {
 			const t = translate;
