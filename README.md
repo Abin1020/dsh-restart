@@ -22,9 +22,32 @@ function cookieName(authority) {
 
 上游已有 [#10802](https://github.com/deepseek-ai/deepseek-harness/issues/10802)、#10828、#11095 三份报告。
 
+## 界面预览
+
+设置页里多出「桌面维护」，三项功能都在这一页：
+
+![设置页](docs/settings.png)
+
+标题栏右上角、最小化按钮左边是循环箭头，点一下就是重启（顺带清 cookie）：
+
+![标题栏按钮](docs/titlebar.png)
+
 ## 安装
 
-插件以 bundle 形式挂进 profile。手动安装：
+### 方式一：插件页安装（推荐）
+
+1. 打开 **设置 → 插件**，点 **添加插件**
+2. 在「包名或地址」里填入：
+
+   ```
+   https://github.com/Abin1020/dsh-restart
+   ```
+
+3. 点 **安装**，装完后**完全退出 DSH 再打开**
+
+装的时候 DSH 会自动把本插件登记进 profile 的 `dependencies` 与 `dsh.profile.bundles`，不需要手改任何文件。装完重启生效——**第一次重启只能手动退出重开**，因为重启按钮这时才被加载进来。
+
+### 方式二：手动安装（离线包 / 想改代码时）
 
 ```bash
 # 1. 放进插件目录
@@ -35,16 +58,39 @@ git clone https://github.com/Abin1020/dsh-restart.git ~/.dsh/plugins/dsh-restart
 #    - dependencies 加 "dsh-restart": "file:../../plugins/dsh-restart"
 #    - dsh.profile.bundles 末尾加 "dsh-restart"
 
-# 3. 建链接（profile 用 pnpm 的 nodeLinker: hoisted，不存在软链会自动创建）
+# 3. 建链接（profile 用 pnpm 的 nodeLinker: hoisted，它不会替你建这个链接）
 #    Windows PowerShell:
 #    New-Item -ItemType Junction `
 #      -Path "$env:USERPROFILE\.dsh\profiles\desktop\node_modules\dsh-restart" `
 #      -Target "$env:USERPROFILE\.dsh\plugins\dsh-restart"
 ```
 
-装完**必须重启一次 DSH**（此时还没有重启按钮），之后就有按钮了。想确认加载成功：`GET http://127.0.0.1:<当前端口>/dsh-restart/status` 应返回 200。
+同样要重启一次 DSH。
 
-卸载见文末。
+### 确认装上了
+
+浏览器或 PowerShell 打开 `http://127.0.0.1:<当前端口>/dsh-restart/status`，返回 200 就是加载成功。端口在启动日志里，或看地址栏。
+
+## 卸载
+
+插件页点 **卸载** 即可，DSH 会自己清掉 `dependencies` 和 `dsh.profile.bundles` 里的登记。之后**要再重启一次**才真正卸载干净——这正是本插件存在的理由。
+
+手动装的版本需要自己收拾：
+
+```bash
+# 1. 从 profile 移除（把 ~ 换成你的用户目录）
+#    ~/.dsh/profiles/desktop/package.json
+#      删 dependencies 里的 "dsh-restart"
+#      删 dsh.profile.bundles 里的 "dsh-restart"
+
+# 2. 删链接
+rm ~/.dsh/profiles/desktop/node_modules/dsh-restart
+
+# 3. 删插件与数据（可选）
+rm -rf ~/.dsh/plugins/dsh-restart ~/.dsh/dsh-restart
+```
+
+备份的 cookie 库在 `%APPDATA%\@deepseek-ai\dsh-desktop\Network\dsh-tools-backup\`，需要时手动删。
 
 ## 三项功能各自怎么实现
 
@@ -282,23 +328,6 @@ cd lib
 | `boot.log` | 启动时序诊断 + 窗口代理的执行记录（追加式，可随时删） |
 | `helper.log` | 追加式日志 |
 | `layout.json` | 窗口尺寸 / 位置与右侧栏宽度偏好 |
-
-## 卸载
-
-```bash
-# 1. 从 profile 移除（把 ~ 换成你的用户目录）
-#    ~/.dsh/profiles/desktop/package.json
-#      删 dependencies 里的 "dsh-restart"
-#      删 dsh.profile.bundles 里的 "dsh-restart"
-
-# 2. 删链接
-rm ~/.dsh/profiles/desktop/node_modules/dsh-restart
-
-# 3. 删插件与数据（可选）
-rm -rf ~/.dsh/plugins/dsh-restart ~/.dsh/dsh-restart
-```
-
-备份的 cookie 库在 `%APPDATA%\@deepseek-ai\dsh-desktop\Network\dsh-tools-backup\`，需要时手动删。
 
 ## 已知边界
 

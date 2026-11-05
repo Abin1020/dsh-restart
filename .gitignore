@@ -2,7 +2,7 @@
 node_modules/
 *.tgz
 
-# 运行时数据（插件会把它们写到 $DSH_HOME/desktop-tools/）
+# 运行时数据（插件会把它们写到 $DSH_HOME/dsh-restart/）
 last-run.json
 boot.log
 helper.log
