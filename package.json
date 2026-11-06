@@ -1,6 +1,6 @@
 {
   "name": "dsh-restart",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "type": "module",
   "description": "DeepSeek Harness 桌面端维护：清理累积的 dsh-auth-* cookie、页面内一键重启、自定义窗口与右侧栏尺寸。零 asar 补丁。",
